@@ -1,6 +1,46 @@
 [gd_scene format=3 uid="uid://qy6kboesg73"]
 
 [ext_resource type="Script" uid="uid://8byhp5wom4a0" path="res://src/main.gd" id="1_eewff"]
+[ext_resource type="Texture2D" uid="uid://dp4j6okgwkgmn" path="res://checkboard.png" id="2_5q4o7"]
+[ext_resource type="PackedScene" uid="uid://bnqjnhab3h3wr" path="res://src/player.tscn" id="2_gh0ne"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3cfgd"]
+albedo_color = Color(0.3779188, 0.37791887, 0.37791884, 1)
+albedo_texture = ExtResource("2_5q4o7")
+uv1_triplanar = true
+
+[sub_resource type="Environment" id="Environment_gh0ne"]
+background_mode = 1
+background_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.5367928, 0.646874, 0.74297833, 1)
+tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+fog_light_energy = 1.2
+fog_density = 0.0
+fog_sky_affect = 0.5
+fog_height = -0.2
+fog_height_density = 0.8
 
 [node name="Main" type="Node" unique_id=2121262617]
 script = ExtResource("1_eewff")
+
+[node name="Field" type="Node3D" parent="." unique_id=1774214774]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Field" unique_id=165004174]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.50191766, 0)
+use_collision = true
+size = Vector3(10, 1, 10)
+material = SubResource("StandardMaterial3D_3cfgd")
+
+[node name="Player" parent="Field" unique_id=1144244832 instance=ExtResource("2_gh0ne")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Field" unique_id=1131916131]
+transform = Transform3D(0.70710677, 0.49999997, -0.49999997, 0, 0.70710677, 0.70710677, 0.70710677, -0.49999997, 0.49999997, -7.8, 2.9, 0)
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_max_distance = 40.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Field" unique_id=2117609876]
+environment = SubResource("Environment_gh0ne")
